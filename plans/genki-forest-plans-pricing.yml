@@ -1,0 +1,21 @@
+generated: '2026-08-21'
+method: searched
+source: >-
+  https://www.yuanqisenlin.com/ , https://www.chiforest.com/ and
+  https://open.yuanqisenlin.com/doc.html — searched for API pricing, plans, tiers or a partner
+  onboarding page.
+plan_count: 0
+plans: []
+note: >-
+  Genki Forest publishes NO API pricing of any kind. The open platform at open.yuanqisenlin.com is
+  a partner/distributor gateway whose credentials are issued per tenant (a tenantNumber header is
+  required), so access is a commercial distribution relationship, not a purchasable API plan. The
+  company's consumer sites publish beverage product pages and a store locator, not developer
+  pricing. Recorded as an honest zero, not as an omission.
+evidence:
+- url: https://www.chiforest.com/faq
+  status: 200
+  finding: Consumer FAQ (ingredients, stockists). No API or developer pricing.
+- url: https://open.yuanqisenlin.com/doc.html
+  status: 200
+  finding: knife4j documentation UI. No pricing, no self-service signup.

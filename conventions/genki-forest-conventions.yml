@@ -1,0 +1,86 @@
+generated: '2026-08-21'
+method: derived
+source: >-
+  openapi/genki-forest-open-platform-swagger.json (securityDefinitions, host, basePath) plus live
+  probes of https://open.yuanqisenlin.com/ recorded in errors/genki-forest-problem-types.yml.
+scope: Genki Forest Open Platform (open.yuanqisenlin.com)
+note: >-
+  The provider publishes no developer guide, no conventions page and no operation catalog. Only the
+  facts below are evidenced; everything else is recorded as unknown rather than guessed.
+authentication:
+  style: api-key-headers
+  headers:
+  - name: Authorization
+    scheme_name: BearerToken
+    note: Declared in the Swagger document as an apiKey in the header named Authorization.
+  - name: tenantNumber
+    scheme_name: tenantNumber
+    note: >-
+      Tenant discriminator header. Its presence tells you this is a multi-tenant partner gateway —
+      credentials are issued per distributor/merchant tenant, not per developer account.
+  oauth: false
+  docs: null
+transport:
+  base_url: https://open.yuanqisenlin.com/
+  root_method: POST
+  note: >-
+    GET on the gateway root returns 405 with "Allow: POST". The root is a POST-only unified entry
+    point rather than a resource-per-path REST surface.
+  tls: TLSv1.2
+  hsts: true
+error_envelope:
+  status: documented-by-probe
+  shape: '{ "error": <int>, "message": <string> }'
+  http_status_carries_error: false
+  reference: errors/genki-forest-problem-types.yml
+idempotency:
+  status: undocumented
+  header: null
+  note: >-
+    No idempotency key, retry semantics or replay window is documented anywhere on the public
+    surface. No Idempotency pointer is emitted in apis.yml.
+pagination:
+  status: unknown
+  note: The published contract declares zero operations, so no pagination parameters are visible.
+versioning:
+  status: minimal
+  declared_version: '1.0'
+  source: swagger info.version
+  in_path: false
+  note: >-
+    basePath is "/" and the documentation route is /v2/api-docs, which is the springfox document
+    version, not an API version. No versioning policy is published.
+rate_limit_signaling:
+  status: none-observed
+  headers_observed: []
+  reference: rate-limits/genki-forest-rate-limits.yml
+request_id_tracing:
+  status: none-observed
+  note: >-
+    No X-Request-Id / trace header was returned on any probed response. The only cookie set is
+    acw_tc, an Alibaba Cloud WAF/SLB tracking cookie, which is infrastructure, not tracing.
+field_expansion:
+  status: unknown
+metadata:
+  status: unknown
+reversibility:
+  status: unknown
+  grade: null
+  write_surface: probable-but-unpublished
+  reversal_operations: []
+  windows: []
+  note: >-
+    This is a distributor and receivables management platform, so a write surface (orders, account
+    postings, credit notes) is all but certain — but the published contract declares zero
+    operations and there is no public documentation, so no reversal operation and no reversal
+    window can be evidenced. Recorded as unknown, NOT as `na`: `na` would assert this is a
+    read-only API, which is not what was found. No window is asserted because the provider states
+    none, and inventing one here could cost a partner real money.
+dry_run_mode:
+  status: unknown
+  note: No sandbox, test tenant or dry-run mode is publicly documented.
+cross_links:
+  errors: errors/genki-forest-problem-types.yml
+  authentication: authentication/genki-forest-authentication.yml
+  lifecycle: lifecycle/genki-forest-lifecycle.yml
+  rate_limits: rate-limits/genki-forest-rate-limits.yml

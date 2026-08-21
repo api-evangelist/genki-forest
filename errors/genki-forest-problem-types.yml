@@ -1,0 +1,63 @@
+generated: '2026-08-21'
+method: probed
+source: >-
+  Live unauthenticated responses from https://open.yuanqisenlin.com/ (anonymous GET/POST to the
+  gateway root and to non-existent paths). The published Swagger 2.0 document declares zero
+  operations and therefore zero response definitions, so nothing here could be derived from the
+  spec — every entry below is an envelope actually observed on the wire.
+format: vendor-json
+rfc9457: false
+note: >-
+  Two DIFFERENT error envelopes are served by the same host. The application envelope is the
+  significant one: the gateway answers a malformed request with HTTP 200 and carries the real
+  failure in a numeric `error` field in the body. An agent that keys off the HTTP status code
+  alone will read every application failure as a success.
+envelopes:
+- name: application
+  shape:
+    error: integer
+    message: string
+  http_status_observed: 200
+  example: '{"error":412,"message":"参数检验失败"}'
+  note: >-
+    Observed on POST https://open.yuanqisenlin.com/ with an empty JSON body. HTTP 200, application
+    error 412, message "parameter validation failed". Status-code-independent error signalling.
+- name: framework
+  shape:
+    timestamp: integer
+    status: integer
+    error: string
+    message: string
+    path: string
+  http_status_observed: 404, 405
+  example: '{"timestamp":1787348897149,"status":404,"error":"Not Found","message":"No message available","path":"/openapi.json"}'
+  note: Spring Boot default error handler; surfaces for unrouted paths and unsupported methods.
+problem_types:
+- code: 412
+  envelope: application
+  http_status: 200
+  title: 参数检验失败
+  title_en: Parameter validation failed
+  observed_at: 'POST https://open.yuanqisenlin.com/ (empty JSON body, no credentials)'
+  remediation: >-
+    Supply the request parameters the gateway expects. The gateway root accepts POST only and
+    requires the Authorization and tenantNumber headers documented in
+    authentication/genki-forest-authentication.yml.
+- code: 404
+  envelope: framework
+  http_status: 404
+  title: Not Found
+  observed_at: 'GET https://open.yuanqisenlin.com/openapi.json'
+  remediation: Route does not exist on the gateway.
+- code: 405
+  envelope: framework
+  http_status: 405
+  title: Method Not Allowed
+  observed_at: 'GET https://open.yuanqisenlin.com/ — response carries "Allow: POST"'
+  remediation: Use POST. The gateway root is a POST-only unified entry point.
+gaps:
+- No public error-code reference is published.
+- No RFC 9457 application/problem+json media type is used.
+- >-
+    The published contract declares no operations, so no error responses are documented per
+    operation; everything above had to be observed by probing.

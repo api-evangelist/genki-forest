@@ -1,0 +1,27 @@
+generated: '2026-08-21'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.yuanqisenlin.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 26 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 631138519
+- host: open.yuanqisenlin.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 26 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 15724800
+  hsts_include_subdomains: true
+  note: >-
+    HSTS is served on this host but the automated probe recorded null because GET / returns
+    405 Method Not Allowed (the gateway root accepts POST only). Header observed verbatim on
+    that 405 response: Strict-Transport-Security: max-age=15724800; includeSubDomains.
+domains:
+- domain: yuanqisenlin.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false

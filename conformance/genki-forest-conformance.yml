@@ -1,0 +1,76 @@
+generated: '2026-08-21'
+method: derived
+source: >-
+  openapi/genki-forest-open-platform-swagger.json and live probes of open.yuanqisenlin.com,
+  www.yuanqisenlin.com and www.chiforest.com. No compliance or certification claim was found on
+  any public Genki Forest / Chi Forest page.
+standards:
+- id: openapi
+  conforms: false
+  evidence: >-
+    The provider publishes Swagger 2.0 (OpenAPI 2.0), not OpenAPI 3.x —
+    open.yuanqisenlin.com/v2/api-docs declares "swagger": "2.0".
+- id: swagger2
+  conforms: true
+  evidence: >-
+    https://open.yuanqisenlin.com/v2/api-docs returns a valid Swagger 2.0 document (springfox /
+    knife4j), host open.yuanqisenlin.com, title 经销商&账款管理. It declares securityDefinitions but
+    zero paths.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    securityDefinitions declare two apiKey header credentials (Authorization, tenantNumber). No
+    oauth2 flow is declared and /.well-known/oauth-authorization-server 404s on every host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 or an SPA HTML shell on every host.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors are returned as a vendor JSON envelope {error, message}; no application/problem+json
+    media type is served. See errors/genki-forest-problem-types.yml.
+- id: rfc9116
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.yuanqisenlin.com, www.chiforest.com and open.yuanqisenlin.com.
+- id: rfc8594
+  conforms: false
+  evidence: No Deprecation or Sunset header, and no deprecation policy, is published.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key or retry semantics documented; see conventions/genki-forest-conventions.yml.
+- id: pagination
+  conforms: unknown
+  evidence: The published contract declares zero operations, so no pagination convention is visible.
+- id: llmstxt
+  conforms: true
+  evidence: >-
+    https://www.yuanqisenlin.com/llms.txt returns 200 text/plain (290,197 bytes) — a first-party,
+    hand-authored llms.txt in the llms.txt markdown-section form (# title, ## sections). robots.txt
+    on the same host explicitly directs GPTBot, ChatGPT-User, ClaudeBot and CCBot to read it.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on all three hosts.
+- id: mcp
+  conforms: false
+  evidence: No MCP endpoint found; https://open.yuanqisenlin.com/mcp returns 404.
+domain_standards:
+  searched:
+  - GS1 (GTIN / GLN / EPCIS) — the identifier standard for packaged-goods distribution
+  - EDI (X12 850/856/810, EDIFACT ORDERS/DESADV/INVOIC) — the standard order-to-cash message set
+    a distributor and receivables platform would normally speak
+  - ISO 20022 — payment/remittance messaging
+  found: none
+  evidence: >-
+    The published contract declares zero operations and zero schemas, and no public documentation
+    exists, so no domain-standard signature (GS1 identifier scheme, EDI/EDIFACT message type,
+    ISO 20022 message) could be observed in the contract. REWARD-ONLY dimension: recorded as not
+    found rather than not applicable — the market has standards, this contract simply does not
+    declare any that a public reader can see.
+compliance:
+  certifications_published: []
+  trust_center: null
+  evidence: >-
+    No trust center, SOC 2 / ISO 27001 / PCI page, or security/compliance program was found on
+    www.yuanqisenlin.com or www.chiforest.com. Product-safety and food-quality claims exist
+    (第一食品安全中心, 全国文明单位) but these are not information-security compliance programs, so no
+    Compliance pointer is emitted.

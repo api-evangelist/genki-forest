@@ -1,18 +1,57 @@
 aid: genki-forest
 name: Genki Forest
-description: 'Genki Forest is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Genki Forest (元气森林), which trades internationally as Chi Forest, is a Chinese beverage company
+  founded in Beijing in 2016 by Tang Binsen. It makes sugar-free sparkling water, brewed and iced
+  teas, milk tea, and electrolyte and vitamin drinks under the 元气森林, 外星人 (Alienergy), 好自在 and
+  Chi Forest brands, produced in its own plants in Chuzhou, Tianjin, Zhaoqing, Dujiangyan, Xianning,
+  Taicang and Jiangsu. Its products are distributed across more than 30 Chinese provinces, cities and
+  autonomous regions and exported to more than 40 countries. It is not a software vendor and runs no
+  public developer program; its only public machine-readable API surface is a partner-facing open
+  platform at open.yuanqisenlin.com that serves a Swagger 2.0 document for a distributor and
+  receivables management service, and a first-party llms.txt published for AI crawlers on its
+  corporate site.
+image: https://static1.squarespace.com/static/694a6a14c2f7be39f0b59e75/t/694a77dc8d4a240fdfd73472/1766488028229/CHIFOREST-Logo.png?format=1500w
 url: https://raw.githubusercontent.com/api-evangelist/genki-forest/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-21'
 modified: '2026-08-21'
 tags:
 - Company
-apis: []
+- Beverages
+- Food and Beverage
+- Consumer Packaged Goods
+- Manufacturing
+- Distribution
+- Retail
+- China
+apis:
+- name: Genki Forest Open Platform — Distributor & Receivables Management
+  description: >-
+    Partner-facing API gateway at open.yuanqisenlin.com serving a Swagger 2.0 document titled
+    "经销商&账款管理" (Distributor & Receivables Management, service name "arthur-merchant"). The
+    document is publicly reachable at /v2/api-docs and rendered by a public knife4j UI at /doc.html,
+    but it declares ZERO operations — only the two header credentials the gateway requires
+    (Authorization bearer token and a tenantNumber tenant header). The operation catalog is not
+    published publicly. Contact addresses in the document are @yuanqisenlin.com, and the declared
+    host is open.yuanqisenlin.com, so the contract is unambiguously Genki Forest's own.
+  humanURL: https://open.yuanqisenlin.com/doc.html
+  baseURL: https://open.yuanqisenlin.com/
+  tags:
+  - Distributors
+  - Merchants
+  - Accounts Receivable
+  properties:
+  - type: OpenAPI
+    url: openapi/genki-forest-open-platform-swagger.json
+  - type: Overlay
+    url: overlays/genki-forest-open-platform-overlay.yaml
+  - type: Authentication
+    url: authentication/genki-forest-authentication.yml
+  - type: ErrorCatalog
+    url: errors/genki-forest-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +59,39 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.hiive.com/securities/genki-forest-stock
+  url: https://www.yuanqisenlin.com/
+- type: Documentation
+  url: https://open.yuanqisenlin.com/doc.html
+- type: APIReference
+  url: https://open.yuanqisenlin.com/v2/api-docs
+- type: Support
+  url: https://www.yuanqisenlin.com/contact
+- type: Blog
+  url: https://www.yuanqisenlin.com/news
+- type: GitHubOrganization
+  url: https://github.com/chiforest
+- type: LLMsTxt
+  url: llms/genki-forest-llms.txt
+- type: Authentication
+  url: authentication/genki-forest-authentication.yml
+- type: ErrorCatalog
+  url: errors/genki-forest-problem-types.yml
+- type: Conventions
+  url: conventions/genki-forest-conventions.yml
+- type: Conformance
+  url: conformance/genki-forest-conformance.yml
+- type: Lifecycle
+  url: lifecycle/genki-forest-lifecycle.yml
+- type: Plans
+  url: plans/genki-forest-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/genki-forest-rate-limits.yml
+- type: DomainSecurity
+  url: security/genki-forest-domain-security.yml
+- type: Overlay
+  url: overlays/genki-forest-open-platform-overlay.yaml
+x-enrichment:
+  date: '2026-08-21'
+  status: enriched
+  artifacts_added: 13
+  pass: local-v1

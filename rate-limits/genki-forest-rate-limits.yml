@@ -1,0 +1,30 @@
+generated: '2026-08-21'
+method: probed
+source: >-
+  Live unauthenticated responses from https://open.yuanqisenlin.com/ (GET / -> 405, POST / -> 200
+  with application error 412, GET of several unrouted paths -> 404), plus a search of every public
+  Genki Forest page for published limits.
+limit_count: 0
+limits: []
+response_headers: []
+retry_after: false
+exhaustion_status: null
+note: >-
+  No rate limits are documented anywhere on the public surface, and no rate-limit headers were
+  returned on any probed response. The only non-standard response header observed was
+  Set-Cookie: acw_tc=..., an Alibaba Cloud WAF/SLB session cookie — infrastructure fronting the
+  gateway, not a published quota signal. An honest zero: an agent has no runtime signal to back
+  off on.
+evidence:
+- url: https://open.yuanqisenlin.com/
+  method: GET
+  status: 405
+  rate_limit_headers: none
+- url: https://open.yuanqisenlin.com/
+  method: POST
+  status: 200
+  rate_limit_headers: none
+- url: https://open.yuanqisenlin.com/v2/api-docs
+  method: GET
+  status: 200
+  rate_limit_headers: none

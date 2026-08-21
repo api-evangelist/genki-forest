@@ -1,0 +1,30 @@
+generated: '2026-08-21'
+method: searched
+source: >-
+  Searched for an official Genki Forest / Chi Forest MCP server (docs, GitHub org github.com/chiforest,
+  npm, web search) and probed https://open.yuanqisenlin.com/mcp.
+status: none
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []
+note: >-
+  No MCP server exists, hosted or local. No candidate tool list could be derived either: the one
+  published contract (openapi/genki-forest-open-platform-swagger.json) declares ZERO operations,
+  so there is nothing to project into tools. Deliberately no MCPServer pointer is emitted in
+  apis.yml — this file records an absence, not a surface.
+probes:
+- url: https://open.yuanqisenlin.com/mcp
+  status: 404
+- url: https://registry.npmjs.org/chiforest
+  status: 404
+- url: https://github.com/chiforest
+  status: 200
+  finding: >-
+    Real Genki Forest GitHub organization (display name 元气森林, website www.chiforest.com), but it
+    holds one forked repository — codem-demo, a Feishu CodeM demo page. No SDK, no MCP server, no
+    published specification.

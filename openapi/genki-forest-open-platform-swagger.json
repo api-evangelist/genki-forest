@@ -1,0 +1,28 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "description": "arthur-merchant",
+  "version": "1.0",
+  "title": "经销商&账款管理",
+  "termsOfService": "http://localhost:7022/",
+  "contact": {
+   "name": "REDACTED_PERSONAL_NAMES",
+   "email": "REDACTED_PERSONAL_EMAILS@yuanqisenlin.com"
+  },
+  "x-api-evangelist-redaction": "Saved verbatim from https://open.yuanqisenlin.com/v2/api-docs on 2026-08-21 with ONE change: info.contact named two individual Genki Forest employees and their personal corporate email addresses at yuanqisenlin.com. Those two names and two addresses were replaced with placeholders under the API Evangelist enrichment PII guardrail. Nothing else in this document was altered. The unmodified document remains available at the source URL."
+ },
+ "host": "open.yuanqisenlin.com",
+ "basePath": "/",
+ "securityDefinitions": {
+  "BearerToken": {
+   "type": "apiKey",
+   "name": "Authorization",
+   "in": "header"
+  },
+  "tenantNumber": {
+   "type": "apiKey",
+   "name": "tenantNumber",
+   "in": "header"
+  }
+ }
+}

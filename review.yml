@@ -1,0 +1,77 @@
+generated: '2026-08-21'
+method: probed
+pass: enrichment local-v1
+summary: >-
+  Genki Forest is a consumer beverage manufacturer, not a software vendor, and it runs no public
+  developer program. Contract discovery nevertheless turned up TWO real first-party machine-readable
+  surfaces that the previous stub recorded as absent: a Swagger 2.0 document served from the
+  company's own partner gateway, and a hand-authored llms.txt that its robots.txt explicitly points
+  AI crawlers at.
+findings:
+- id: open-platform-swagger
+  severity: finding
+  title: A real Swagger 2.0 contract is public — and declares zero operations
+  detail: >-
+    https://open.yuanqisenlin.com/v2/api-docs returns HTTP 200 with a valid Swagger 2.0 document
+    (springfox, rendered by a public knife4j UI at /doc.html). Title 经销商&账款管理 (Distributor &
+    Receivables Management), internal service name "arthur-merchant", host open.yuanqisenlin.com.
+    It declares two apiKey header credentials and NO paths. An integrator can therefore learn how
+    to authenticate and nothing at all about what to call. Ownership is unambiguous: the declared
+    host and the contact addresses are both on yuanqisenlin.com.
+- id: internal-artifacts-leaked-into-a-public-contract
+  severity: hygiene
+  title: The public contract carries developer-machine and personal-contact leftovers
+  detail: >-
+    info.termsOfService is "http://localhost:7022/" — a developer laptop URL shipped in a public
+    document — and info.contact named two individual employees with their personal corporate email
+    addresses. Under the API Evangelist enrichment PII guardrail those two names and addresses were
+    replaced with placeholders in the copy saved to openapi/, and the redaction is recorded inline
+    in the file. No individual is named anywhere in this repo. Worth reporting to the provider: the
+    combination of an internal service name, a localhost terms URL and named staff contacts
+    suggests this document is exposed by default rather than published deliberately.
+- id: http-200-carries-application-errors
+  severity: finding
+  title: The gateway returns application failures with HTTP 200
+  detail: >-
+    POST https://open.yuanqisenlin.com/ with an empty JSON body returns HTTP 200 carrying
+    {"error":412,"message":"参数检验失败"}. Any agent or client that keys off the HTTP status code will
+    read every application failure as a success. Captured in errors/genki-forest-problem-types.yml.
+- id: llms-txt-is-real-and-deliberate
+  severity: positive
+  title: A first-party llms.txt, and a robots.txt that routes AI crawlers to it
+  detail: >-
+    https://www.yuanqisenlin.com/llms.txt returns 200 text/plain, 290,197 bytes, hand-authored in
+    Chinese in llms.txt section form — company overview, mission, timeline, full product catalog by
+    brand, news and supplier-recruitment notices. https://www.yuanqisenlin.com/robots.txt names
+    GPTBot, ChatGPT-User, ClaudeBot and CCBot and tells them to read /llms.txt. This is a more
+    deliberate AI-facing posture than most consumer-goods companies in the catalog have, and it is
+    the only agent surface this company actually ships.
+- id: corporate-site-is-an-spa-that-soft-200s
+  severity: hygiene
+  title: www.yuanqisenlin.com answers 200 with the same shell for paths that do not exist
+  detail: >-
+    /about, /privacy, /terms, /brand, /esg, /join and every /.well-known/* path all return HTTP 200
+    with the identical ~543KB Nuxt shell. Only /, /about/introduction, /product, /news,
+    /competition and /contact are real pages. Soft-200s were treated as misses throughout this pass;
+    no Privacy or Terms pointer was emitted because neither page exists.
+- id: github-org-is-real-but-empty
+  severity: note
+  title: github.com/chiforest exists and holds nothing of API value
+  detail: >-
+    Real organization (display name 元气森林, website www.chiforest.com) with one forked repository,
+    codem-demo, a Feishu CodeM demo page. No SDK, no spec, no server. Wired as GitHubOrganization
+    because it is genuinely theirs, not because it carries artifacts.
+not_found:
+- No OpenAPI 3.x, GraphQL, AsyncAPI, gRPC/protobuf or WSDL on any host.
+- No MCP server; https://open.yuanqisenlin.com/mcp -> 404.
+- No A2A agent card; /.well-known/agent-card.json and /.well-known/agent.json -> 404 on all hosts.
+- No security.txt, no vulnerability disclosure program, no trust center, no certifications page.
+- No SDK or client library in npm, PyPI, Maven Central, NuGet, RubyGems or crates.io.
+- No API pricing, no published rate limits, no status page, no API changelog, no sandbox.
+hosts_probed:
+- host: www.yuanqisenlin.com
+  role: corporate site (Nuxt SPA)
+- host: www.chiforest.com
+  role: international brand site (Squarespace)
+- host: open.yuanqisenlin.com
+  role: partner/distributor API gateway (Spring Boot + springfox/knife4j behind Alibaba Cloud WAF)

@@ -1,0 +1,94 @@
+generated: '2026-08-21'
+method: probed
+source: >-
+  Direct HTTP probes of /.well-known/* on every Genki Forest host found in this repo
+  (corporate site, Chi Forest international site, and the open platform API gateway).
+note: >-
+  NOTHING WAS SERVED. Every /.well-known/ path either 404s or is answered by a single-page-app
+  catch-all that returns HTTP 200 with the site's HTML shell (543KB Nuxt document on
+  www.yuanqisenlin.com). Those 200s are recorded below as status 200 with served: false because
+  the body is the SPA shell, not a document. No WellKnown, SecurityTxt or APICatalog pointer is
+  emitted in apis.yml, because the provider serves none of these surfaces.
+hosts:
+- host: www.yuanqisenlin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    served: false
+    file: null
+    note: SPA catch-all returned the site HTML shell, not a document.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    served: false
+    file: null
+    note: SPA catch-all returned the site HTML shell, not a document.
+  - path: /.well-known/api-catalog
+    status: 200
+    served: false
+    file: null
+    note: SPA catch-all returned the site HTML shell, not a document.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: www.chiforest.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: 'Squarespace platform response: {"message":"security.txt not found"}'
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: open.yuanqisenlin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+related_probes:
+- url: https://www.yuanqisenlin.com/llms.txt
+  status: 200
+  served: true
+  file: llms/genki-forest-llms.txt
+  note: >-
+    Not a /.well-known/ path, but the one AI-facing document this company actually publishes.
+    Its robots.txt explicitly points GPTBot, ChatGPT-User, ClaudeBot and CCBot at it.
+- url: https://www.yuanqisenlin.com/robots.txt
+  status: 200
+  served: true
+  note: 'Contains: "AI助手请参考llms.txt文件获取网站完整信息" — AI assistants should read /llms.txt.'

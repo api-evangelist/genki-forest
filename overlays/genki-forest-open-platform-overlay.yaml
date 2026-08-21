@@ -1,0 +1,53 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Genki Forest Open Platform
+  version: 1.0.0
+extends: ../openapi/genki-forest-open-platform-swagger.json
+x-provenance:
+  generated: '2026-08-21'
+  method: generated
+  source: >-
+    Live probes of https://open.yuanqisenlin.com/ on 2026-08-21. Every value added below was
+    observed on the wire or read from the published document; nothing is inferred.
+  note: >-
+    The upstream document is Swagger 2.0 and declares ZERO operations, so this overlay cannot
+    annotate operations. It records the runtime facts a consumer needs and that the published
+    document omits. The original document in openapi/ is never mutated.
+actions:
+- target: $.info
+  description: Record the real documentation UI and the fact that the operation catalog is unpublished.
+  update:
+    x-documentation-ui: https://open.yuanqisenlin.com/doc.html
+    x-document-endpoint: https://open.yuanqisenlin.com/v2/api-docs
+    x-operation-catalog-published: false
+    x-operations-declared: 0
+    x-api-evangelist-note: >-
+      Publicly reachable Swagger 2.0 document serving a partner distributor and receivables
+      platform. Credentials are per-tenant. The document declares security but no paths, so an
+      integrator can learn how to authenticate and nothing about what to call.
+- target: $.info
+  description: >-
+    Flag the placeholder termsOfService. The upstream document ships
+    "http://localhost:7022/", a developer-machine URL leaked into a public contract.
+  update:
+    x-terms-of-service-placeholder: true
+    x-terms-of-service-observed: http://localhost:7022/
+- target: $
+  description: Record the observed transport and error semantics that the document does not declare.
+  update:
+    x-root-method: POST
+    x-root-get-status: 405
+    x-error-envelope:
+      shape: '{ "error": <int>, "message": <string> }'
+      http_status_carries_error: false
+      example: '{"error":412,"message":"参数检验失败"}'
+    x-rate-limit-headers: []
+    x-transport-security:
+      tls: TLSv1.2
+      hsts: max-age=15724800; includeSubDomains
+- target: $.securityDefinitions.tenantNumber
+  description: Explain the tenant header, which the document declares without description.
+  update:
+    description: >-
+      Per-tenant discriminator issued to a distributor or merchant. Its presence means access is
+      granted through a commercial distribution relationship, not developer self-service.

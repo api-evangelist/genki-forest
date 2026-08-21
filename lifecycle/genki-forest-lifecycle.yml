@@ -1,0 +1,42 @@
+generated: '2026-08-21'
+method: derived
+source: >-
+  openapi/genki-forest-open-platform-swagger.json plus searches of www.yuanqisenlin.com and
+  www.chiforest.com for versioning, deprecation, SLA and status pages.
+versioning:
+  declared_version: '1.0'
+  source: swagger info.version
+  scheme: unknown
+  policy_url: null
+  in_url: false
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation or sunset policy is published, and the contract declares zero operations, so no
+    operation could be marked deprecated. No Deprecation pointer is emitted in apis.yml.
+status_page:
+  url: null
+  published: false
+  probed:
+  - url: https://status.yuanqisenlin.com/
+    status: 000
+    note: DNS does not resolve.
+  note: >-
+    No status page found on any Genki Forest host or on the common third-party status providers.
+    No StatusPage pointer is emitted in apis.yml.
+sla:
+  published: false
+  url: null
+changelog:
+  api_changelog_published: false
+  note: >-
+    https://www.yuanqisenlin.com/news (200) is a corporate news and announcements feed — product
+    launches, factory openings, awards — not an API changelog. It is wired as type Blog, not
+    ChangeLog, and no changelog/ artifact is written.
+support:
+  channel: https://www.yuanqisenlin.com/contact
+  phone: 400-818-0032
+  status: 200
