@@ -11,6 +11,18 @@ description: >-
   platform at open.yuanqisenlin.com that serves a Swagger 2.0 document for a distributor and
   receivables management service, and a first-party llms.txt published for AI crawlers on its
   corporate site.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://static1.squarespace.com/static/694a6a14c2f7be39f0b59e75/t/694a77dc8d4a240fdfd73472/1766488028229/CHIFOREST-Logo.png?format=1500w
 url: https://raw.githubusercontent.com/api-evangelist/genki-forest/refs/heads/main/apis.yml
 x-type: company
