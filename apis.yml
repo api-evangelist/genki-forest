@@ -23,6 +23,20 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  generated: '2026-09-03'
+  method: derived
 image: https://static1.squarespace.com/static/694a6a14c2f7be39f0b59e75/t/694a77dc8d4a240fdfd73472/1766488028229/CHIFOREST-Logo.png?format=1500w
 url: https://raw.githubusercontent.com/api-evangelist/genki-forest/refs/heads/main/apis.yml
 x-type: company
